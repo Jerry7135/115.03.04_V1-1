@@ -38,7 +38,7 @@ st.markdown("""
         overflow: hidden; /* 確保圖片不超出圓角 */
         padding: 5px; /* 給圖片一點呼吸空間 */
     }
-    /* 🎯 【修復修改點】調整 Logo 圖片的樣式 */
+    /* 調整 Logo 圖片的樣式 */
     .app-logo img {
         max-width: 100%;
         max-height: 100%;
@@ -154,12 +154,12 @@ def load_data():
 
 df = load_data()
 
-# --- 🎯 2. 標題區：嵌入紅色郵筒圖片 Logo ---
-# 我使用了一個公用的紅色郵筒圖片網址，並透過 <img> 標籤嵌入
+# --- 🎯 2. 標題區：嵌入 Q 版卡通郵筒圖片 Logo ---
+# 我更換了一個更可愛的 Q 版郵筒圖片網址
 st.markdown("""
 <div class="title-container">
     <div class="app-logo">
-        <img src="https://tdal.blob.core.windows.net/img/145a7329df3542368923bc56fde7d65f.png" alt="紅色郵筒">
+        <img src="https://img.icons8.com/fluency/96/mailbox-closed-flag-down.png" alt="Q版郵筒">
     </div>
     <div class="main-title-text">甲佣試算一覽表</div>
 </div>
@@ -167,8 +167,8 @@ st.markdown("""
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V12（修正版）<br>
-甲佣比率請以最新公告之公文為主<br>
+製作者：徐杰　v115.03.04_V13（修正版）<br>
+甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
 <div style='display: flex; align-items: center; font-size: 15px; color: #94A3B8; margin-bottom: 20px; font-weight: bold;'>
@@ -177,7 +177,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- 試算介面邏輯 ---
+# --- 試算介面邏輯 (下方維持原樣，省略部分程式碼以節省空間) ---
+# ... (這裡維持之前的計算邏輯) ...
 groups = df["群組"].unique()
 
 for group in groups:
