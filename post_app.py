@@ -11,6 +11,12 @@ st.markdown("""
         color: #FAFAFA; 
     }
     
+    /* 🎯 【新增修改點】強制網頁大標題不換行，並根據螢幕自動縮放大小 */
+    h1 {
+        white-space: nowrap !important; /* 絕對不換行 */
+        font-size: clamp(22px, 7vw, 40px) !important; /* 字體大小：最小22px，最大40px，中間隨螢幕寬度(vw)自動縮放 */
+    }
+    
     /* 群組摺疊面板 (Expander) 標題列 */
     .streamlit-expanderHeader,
     [data-testid="stExpander"] details summary,
@@ -58,7 +64,7 @@ st.markdown("""
     [data-testid="stNumberInput"] input {
         background-color: #1E293B !important;
         color: #FAFAFA !important;
-        -webkit-text-fill-color: #FAFAFA !important; /* 強制文字為白色 */
+        -webkit-text-fill-color: #FAFAFA !important; 
         caret-color: #FAFAFA !important; /* 強制輸入游標也變成白色 */
     }
     
@@ -81,7 +87,7 @@ st.markdown("""
         border: 1px solid #475569 !important;
     }
 
-    /* 🎯 【新增修改點】讓下拉選單右側的「箭頭圖示 (v)」變成白色顯示出來 */
+    /* 讓下拉選單右側的「箭頭圖示 (v)」變成白色顯示出來 */
     div[data-baseweb="select"] svg {
         fill: #FAFAFA !important;
         color: #FAFAFA !important;
@@ -136,7 +142,7 @@ st.title("📮 甲佣試算一覽表")
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V9（修正版）<br>
+製作者：徐杰　v115.03.04_V10（修正版）<br>
 甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
