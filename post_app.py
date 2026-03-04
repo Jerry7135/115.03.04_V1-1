@@ -68,7 +68,7 @@ st.markdown("""
         -webkit-text-fill-color: #475569 !important;
     }
     
-    /* 🎯 【修改點】徹底隱藏輸入框旁邊的加減按鈕 (+/-) */
+    /* 徹底隱藏輸入框旁邊的加減按鈕 (+/-) */
     [data-testid="stNumberInput"] button {
         display: none !important;
     }
@@ -79,6 +79,12 @@ st.markdown("""
     div[data-baseweb="select"] > div:focus-within {
         background-color: #1E293B !important;
         border: 1px solid #475569 !important;
+    }
+
+    /* 🎯 【新增修改點】讓下拉選單右側的「箭頭圖示 (v)」變成白色顯示出來 */
+    div[data-baseweb="select"] svg {
+        fill: #FAFAFA !important;
+        color: #FAFAFA !important;
     }
 
     /* 下拉選單 "展開後的整串清單"：強制深色 */
@@ -130,7 +136,7 @@ st.title("📮 甲佣試算一覽表")
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V8 <br>
+製作者：徐杰　v115.03.04_V9（修正版）<br>
 甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
@@ -208,3 +214,4 @@ for group in groups:
         rows_html += f"<div style='display: flex; justify-content: space-between; padding-top: 12px; margin-top: 8px; border-top: 1px dashed #475569; font-size: 16px; font-weight: bold;'><span style='color: #FAFAFA;'>合計</span><span style='color: #FF4B4B;'>{sum_yearly_amt:,} 元</span></div></div>"
         
         st.markdown(rows_html, unsafe_allow_html=True)
+
