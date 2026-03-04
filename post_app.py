@@ -59,7 +59,7 @@ st.markdown("""
         background-color: #1E293B !important;
         color: #FAFAFA !important;
         -webkit-text-fill-color: #FAFAFA !important; /* 強制文字為白色 */
-        caret-color: #FAFAFA !important; /* 🎯 【修改點】強制輸入游標也變成白色 */
+        caret-color: #FAFAFA !important; /* 強制輸入游標也變成白色 */
     }
     
     /* placeholder(預設空白時的提示字) 顏色調淡一點 */
@@ -68,18 +68,9 @@ st.markdown("""
         -webkit-text-fill-color: #475569 !important;
     }
     
-    /* 輸入框旁邊的加減按鈕區域強制深色底 */
-    [data-testid="stNumberInput"] div[data-baseweb="input"] > div {
-        background-color: #1E293B !important;
-    }
-    
-    /* 加減按鈕本身 */
+    /* 🎯 【修改點】徹底隱藏輸入框旁邊的加減按鈕 (+/-) */
     [data-testid="stNumberInput"] button {
-        background-color: #1E293B !important;
-        color: #FAFAFA !important;
-    }
-    [data-testid="stNumberInput"] button:hover {
-        background-color: #334155 !important;
+        display: none !important;
     }
 
     /* 選擇商品框 (Selectbox) 外觀：強制深色 */
@@ -139,7 +130,7 @@ st.title("📮 甲佣試算一覽表")
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V7<br>
+製作者：徐杰　v115.03.04_V8 <br>
 甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
