@@ -11,7 +11,7 @@ st.markdown("""
         color: #FAFAFA; 
     }
     
-    /* 🚫 【圖一修復】群組摺疊面板 (Expander) 標題列：強制深色，取消 hover 反白 */
+    /* 群組摺疊面板 (Expander) 標題列 */
     .streamlit-expanderHeader,
     [data-testid="stExpander"] details summary,
     [data-testid="stExpander"] details summary:hover,
@@ -31,39 +31,59 @@ st.markdown("""
         border-radius: 0 0 8px 8px;
     }
 
-    /* 🚫 【圖一修復】輸入保費框 (Number Input) & 選擇商品框 (Selectbox) 外觀：強制深色 */
-    div[data-baseweb="input"],
-    div[data-baseweb="input"]:hover,
-    div[data-baseweb="input"]:focus-within,
+    /* 🎯 【修復第一個紅框】選擇商品後，框內的文字顏色強制變白 */
+    [data-testid="stSelectbox"] div[data-baseweb="select"] div {
+        color: #FAFAFA !important;
+    }
+    [data-testid="stSelectbox"] div[data-baseweb="select"] span {
+        color: #FAFAFA !important;
+    }
+
+    /* 🎯 【修復第二個紅框】徹底鎖死「輸入保費」框框，取消任何白底反白 */
+    /* 輸入框的標題文字 (label) */
+    .stNumberInput label p {
+        color: #94A3B8 !important; 
+        font-size: 14px !important;
+    }
+    
+    /* 輸入框外層容器強制深色底 */
+    [data-testid="stNumberInput"] div[data-baseweb="input"],
+    [data-testid="stNumberInput"] div[data-baseweb="input"]:hover,
+    [data-testid="stNumberInput"] div[data-baseweb="input"]:focus-within {
+        background-color: #1E293B !important;
+        border: 1px solid #475569 !important;
+    }
+    
+    /* 輸入框裡面打字區域強制深色底、白色字 */
+    [data-testid="stNumberInput"] input {
+        background-color: #1E293B !important;
+        color: #FAFAFA !important;
+        -webkit-text-fill-color: #FAFAFA !important; /* 強制文字為白色 */
+    }
+    
+    /* 輸入框旁邊的加減按鈕區域強制深色底 */
+    [data-testid="stNumberInput"] div[data-baseweb="input"] > div {
+        background-color: #1E293B !important;
+    }
+    
+    /* 加減按鈕本身 */
+    [data-testid="stNumberInput"] button {
+        background-color: #1E293B !important;
+        color: #FAFAFA !important;
+    }
+    [data-testid="stNumberInput"] button:hover {
+        background-color: #334155 !important;
+    }
+
+    /* 選擇商品框 (Selectbox) 外觀：強制深色 */
     div[data-baseweb="select"] > div,
     div[data-baseweb="select"] > div:hover,
     div[data-baseweb="select"] > div:focus-within {
         background-color: #1E293B !important;
         border: 1px solid #475569 !important;
     }
-    
-    /* 輸入框裡面的文字 */
-    div[data-baseweb="input"] input,
-    div[data-baseweb="select"] span {
-        background-color: transparent !important;
-        color: #FAFAFA !important;
-        -webkit-text-fill-color: #FAFAFA !important;
-    }
-    
-    /* 輸入框的加減按鈕 */
-    div[data-baseweb="input"] button {
-        background-color: transparent !important;
-        color: #FAFAFA !important;
-    }
 
-    /* 讓輸入框標題 (label) 顯示淺灰色 */
-    label p {
-        color: #94A3B8 !important; 
-        font-size: 14px !important;
-    }
-
-    /* 🚫 【圖二修復】下拉選單 "展開後的整串清單"：強制深色 */
-    /* 因為下拉清單是浮動元件，必須用 role 屬性全域捕捉 */
+    /* 下拉選單 "展開後的整串清單"：強制深色 */
     ul[role="listbox"], 
     div[data-baseweb="popover"] ul {
         background-color: #1E293B !important;
@@ -76,7 +96,7 @@ st.markdown("""
         color: #FAFAFA !important;
     }
     
-    /* 滑鼠停留在選項上時，稍微變淺一點點的深灰色 (不要變白) */
+    /* 滑鼠停留在選項上時 */
     li[role="option"]:hover,
     li[role="option"][aria-selected="true"],
     div[data-baseweb="popover"] li:hover,
@@ -93,7 +113,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 資料讀取區 ---
-SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQO39goSGn2bbknXdW9m5t-S2EFb2ZdXDy75NJUUfL5vU8orEi7pzK9V3Ttp70tNQ/pub?output=csv"
+SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQV5BqwNpncIYT0LB6bf67sGfMB0-dghenS23uGqX7WqLUo9qUv8PkG84JwQh58UmUlycRti-CKZErv/pub?output=csv"
 
 @st.cache_data(ttl=60) 
 def load_data():
@@ -112,7 +132,7 @@ st.title("📮 甲佣試算一覽表")
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V3（修正版）<br>
+製作者：徐杰　v115.03.04_5（修正版）<br>
 甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
