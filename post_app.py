@@ -11,10 +11,10 @@ st.markdown("""
         color: #FAFAFA; 
     }
     
-    /* 🎯 【新增修改點】強制網頁大標題不換行，並根據螢幕自動縮放大小 */
+    /* 強制網頁大標題不換行，並根據螢幕自動縮放大小 */
     h1 {
-        white-space: nowrap !important; /* 絕對不換行 */
-        font-size: clamp(22px, 7vw, 40px) !important; /* 字體大小：最小22px，最大40px，中間隨螢幕寬度(vw)自動縮放 */
+        white-space: nowrap !important; 
+        font-size: clamp(22px, 7vw, 40px) !important; 
     }
     
     /* 群組摺疊面板 (Expander) 標題列 */
@@ -46,7 +46,6 @@ st.markdown("""
     }
 
     /* 徹底鎖死「輸入保費」框框，取消任何白底反白 */
-    /* 輸入框的標題文字 (label) */
     .stNumberInput label p {
         color: #94A3B8 !important; 
         font-size: 14px !important;
@@ -77,6 +76,23 @@ st.markdown("""
     /* 徹底隱藏輸入框旁邊的加減按鈕 (+/-) */
     [data-testid="stNumberInput"] button {
         display: none !important;
+    }
+
+    /* 🎯 【修復紅框問題】消除打字時出現的「清除按鈕(x)」白底區塊 */
+    [data-testid="stNumberInput"] div[data-baseweb="input"] > div {
+        background-color: transparent !important;
+    }
+    [data-testid="stNumberInput"] div[data-baseweb="input"] [role="button"] {
+        background-color: transparent !important;
+    }
+    [data-testid="stNumberInput"] div[data-baseweb="input"] [role="button"]:hover {
+        background-color: #334155 !important; /* 讓滑鼠移到叉叉上時稍微變深灰 */
+        border-radius: 4px;
+    }
+    /* 讓叉叉 (x) 圖示變成淺灰色 */
+    [data-testid="stNumberInput"] div[data-baseweb="input"] svg {
+        fill: #94A3B8 !important;
+        color: #94A3B8 !important;
     }
 
     /* 選擇商品框 (Selectbox) 外觀：強制深色 */
@@ -142,7 +158,7 @@ st.title("📮 甲佣試算一覽表")
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V10（修正版）<br>
+製作者：徐杰　v115.03.04_V11（修正版）<br>
 甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
