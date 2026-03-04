@@ -92,7 +92,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 資料讀取區 ---
-SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQV5BqwNpncIYT0LB6bf67sGfMB0-dghenS23uGqX7WqLUo9qUv8PkG84JwQh58UmUlycRti-CKZErv/pub?output=csv"
+SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQO39goSGn2bbknXdW9m5t-S2EFb2ZdXDy75NJUUfL5vU8orEi7pzK9V3Ttp70tNQ/pub?output=csv"
 
 @st.cache_data(ttl=60) 
 def load_data():
@@ -181,3 +181,4 @@ for group in groups:
         rows_html += f"<div style='display: flex; justify-content: space-between; padding-top: 12px; margin-top: 8px; border-top: 1px dashed #475569; font-size: 16px; font-weight: bold;'><span style='color: #FAFAFA;'>合計</span><span style='color: #FF4B4B;'>{sum_yearly_amt:,} 元</span></div></div>"
         
         st.markdown(rows_html, unsafe_allow_html=True)
+
