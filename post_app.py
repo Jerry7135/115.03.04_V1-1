@@ -11,7 +11,8 @@ st.markdown("""
         color: #FAFAFA; 
     }
     
-    /* 🚫 【終極修改 1】徹底鎖死「群組摺疊面板 (Expander)」的標題，取消任何反白效果 */
+    /* 🚫 【圖一修復】群組摺疊面板 (Expander) 標題列：強制深色，取消 hover 反白 */
+    .streamlit-expanderHeader,
     [data-testid="stExpander"] details summary,
     [data-testid="stExpander"] details summary:hover,
     [data-testid="stExpander"] details summary:focus,
@@ -30,58 +31,58 @@ st.markdown("""
         border-radius: 0 0 8px 8px;
     }
 
-    /* 🚫 【終極修改 2】徹底鎖死「輸入保費」框框，取消任何白底反白 */
-    /* 輸入框的標題文字 */
-    .stNumberInput label p {
+    /* 🚫 【圖一修復】輸入保費框 (Number Input) & 選擇商品框 (Selectbox) 外觀：強制深色 */
+    div[data-baseweb="input"],
+    div[data-baseweb="input"]:hover,
+    div[data-baseweb="input"]:focus-within,
+    div[data-baseweb="select"] > div,
+    div[data-baseweb="select"] > div:hover,
+    div[data-baseweb="select"] > div:focus-within {
+        background-color: #1E293B !important;
+        border: 1px solid #475569 !important;
+    }
+    
+    /* 輸入框裡面的文字 */
+    div[data-baseweb="input"] input,
+    div[data-baseweb="select"] span {
+        background-color: transparent !important;
+        color: #FAFAFA !important;
+        -webkit-text-fill-color: #FAFAFA !important;
+    }
+    
+    /* 輸入框的加減按鈕 */
+    div[data-baseweb="input"] button {
+        background-color: transparent !important;
+        color: #FAFAFA !important;
+    }
+
+    /* 讓輸入框標題 (label) 顯示淺灰色 */
+    label p {
         color: #94A3B8 !important; 
         font-size: 14px !important;
     }
-    /* 輸入框的外層容器 (包含 hover 和點擊時的 focus 狀態) */
-    [data-testid="stNumberInput"] div[data-baseweb="input"],
-    [data-testid="stNumberInput"] div[data-baseweb="input"]:hover,
-    [data-testid="stNumberInput"] div[data-baseweb="input"]:focus-within {
-        background-color: #1E293B !important;
-        border: 1px solid #475569 !important;
-    }
-    /* 輸入框裡面打字的區域 */
-    [data-testid="stNumberInput"] input,
-    [data-testid="stNumberInput"] input:focus {
-        background-color: #1E293B !important;
-        color: #FAFAFA !important;
-        -webkit-text-fill-color: #FAFAFA !important; /* 強制文字為白色 */
-    }
-    /* 輸入框旁邊的加減按鈕 */
-    [data-testid="stNumberInput"] button {
-        background-color: #1E293B !important;
-        color: #FAFAFA !important;
-    }
-    [data-testid="stNumberInput"] button:hover {
-        background-color: #334155 !important; /* 滑鼠移過按鈕時稍微深灰一點點 */
-    }
 
-    /* 順便保留之前針對 Selectbox (選擇商品) 的防反白設定，以防萬一 */
-    [data-testid="stSelectbox"] div[data-baseweb="select"] > div,
-    [data-testid="stSelectbox"] div[data-baseweb="select"] > div:hover,
-    [data-testid="stSelectbox"] div[data-baseweb="select"] > div:focus,
-    [data-testid="stSelectbox"] div[data-baseweb="select"] > div:active {
-        background-color: #1E293B !important;
-        color: #FAFAFA !important;
-        border: 1px solid #475569 !important;
-    }
-    [data-testid="stSelectbox"] div[data-baseweb="select"] span {
-        color: #FAFAFA !important;
-    }
-    [data-testid="stSelectbox"] ul {
+    /* 🚫 【圖二修復】下拉選單 "展開後的整串清單"：強制深色 */
+    /* 因為下拉清單是浮動元件，必須用 role 屬性全域捕捉 */
+    ul[role="listbox"], 
+    div[data-baseweb="popover"] ul {
         background-color: #1E293B !important;
     }
-    [data-testid="stSelectbox"] li {
-        color: #FAFAFA !important;
+    
+    /* 清單內的每一列選項 */
+    li[role="option"],
+    div[data-baseweb="popover"] li {
         background-color: #1E293B !important;
+        color: #FAFAFA !important;
     }
-    [data-testid="stSelectbox"] li:hover, 
-    [data-testid="stSelectbox"] li[aria-selected="true"] {
+    
+    /* 滑鼠停留在選項上時，稍微變淺一點點的深灰色 (不要變白) */
+    li[role="option"]:hover,
+    li[role="option"][aria-selected="true"],
+    div[data-baseweb="popover"] li:hover,
+    div[data-baseweb="popover"] li[aria-selected="true"] {
         background-color: #334155 !important; 
-        color: #FAFAFA !important; 
+        color: #FAFAFA !important;
     }
 
     /* 微調分隔線顏色 */
@@ -111,8 +112,8 @@ st.title("📮 甲佣試算一覽表")
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V1（修正版）<br>
-甲佣比率請以最新公告之公文為主<br>
+製作者：徐杰　v115.03.04_V3（修正版）<br>
+甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
 <div style='display: flex; align-items: center; font-size: 15px; color: #94A3B8; margin-bottom: 20px; font-weight: bold;'>
@@ -181,5 +182,3 @@ for group in groups:
         rows_html += f"<div style='display: flex; justify-content: space-between; padding-top: 12px; margin-top: 8px; border-top: 1px dashed #475569; font-size: 16px; font-weight: bold;'><span style='color: #FAFAFA;'>合計</span><span style='color: #FF4B4B;'>{sum_yearly_amt:,} 元</span></div></div>"
         
         st.markdown(rows_html, unsafe_allow_html=True)
-
-
