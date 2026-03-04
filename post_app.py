@@ -31,7 +31,7 @@ st.markdown("""
         border-radius: 0 0 8px 8px;
     }
 
-    /* 🎯 【修復第一個紅框】選擇商品後，框內的文字顏色強制變白 */
+    /* 🎯 選擇商品後，框內的文字顏色強制變白 */
     [data-testid="stSelectbox"] div[data-baseweb="select"] div {
         color: #FAFAFA !important;
     }
@@ -39,7 +39,7 @@ st.markdown("""
         color: #FAFAFA !important;
     }
 
-    /* 🎯 【修復第二個紅框】徹底鎖死「輸入保費」框框，取消任何白底反白 */
+    /* 🎯 徹底鎖死「輸入保費」框框，取消任何白底反白 */
     /* 輸入框的標題文字 (label) */
     .stNumberInput label p {
         color: #94A3B8 !important; 
@@ -59,6 +59,12 @@ st.markdown("""
         background-color: #1E293B !important;
         color: #FAFAFA !important;
         -webkit-text-fill-color: #FAFAFA !important; /* 強制文字為白色 */
+    }
+    
+    /* placeholder(預設空白時的提示字) 顏色調淡一點 */
+    [data-testid="stNumberInput"] input::placeholder {
+        color: #475569 !important;
+        -webkit-text-fill-color: #475569 !important;
     }
     
     /* 輸入框旁邊的加減按鈕區域強制深色底 */
@@ -132,7 +138,7 @@ st.title("📮 甲佣試算一覽表")
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V5（修正版）<br>
+製作者：徐杰　v115.03.04_V6（修正版）<br>
 甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
@@ -183,10 +189,20 @@ for group in groups:
         st.markdown(header_html, unsafe_allow_html=True)
         
         # --- 輸入保費框 ---
-        premium = st.number_input("輸入保費 (月繳)", min_value=0, value=0, step=1000, key=f"prem_{group}")
+        # 🎯 【修改點】把 value=0 拿掉改成 value=None，並加上 placeholder(未輸入時的淡色提示字)
+        premium = st.number_input(
+            "輸入保費 (月繳)", 
+            min_value=0, 
+            value=None, 
+            step=1000, 
+            key=f"prem_{group}",
+            placeholder="請輸入金額"
+        )
         
         # 🏆 【核心公式修正區】
-        exact_total = (premium / factor) * (commission_rate / 100)
+        # 🎯 【防呆處理】如果使用者把數字清空 (None)，就自動把它當作 0 來計算，避免程式崩潰
+        calc_premium = premium if premium is not None else 0
+        exact_total = (calc_premium / factor) * (commission_rate / 100)
         
         # --- 顯示下半部：分年期計算明細卡片 ---
         rows_html = "<div style='margin-top: 15px; background-color: #1E293B; border: 1px solid #334155; border-radius: 8px; padding: 15px;'>"
@@ -202,4 +218,5 @@ for group in groups:
         rows_html += f"<div style='display: flex; justify-content: space-between; padding-top: 12px; margin-top: 8px; border-top: 1px dashed #475569; font-size: 16px; font-weight: bold;'><span style='color: #FAFAFA;'>合計</span><span style='color: #FF4B4B;'>{sum_yearly_amt:,} 元</span></div></div>"
         
         st.markdown(rows_html, unsafe_allow_html=True)
+
 
