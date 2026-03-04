@@ -1,11 +1,12 @@
 import streamlit as st
 import pandas as pd
 
-# --- 1. 網頁配置：分頁小圖示維持 Emoji 保持清晰 ---
+# --- 1. 網頁配置：分頁小圖示改用 Q 版郵筒圖片 ---
+# 🎯 【修改點】page_icon 更新為 Q 版郵筒圖片網址
 st.set_page_config(
     page_title="甲佣試算一覽表", 
     layout="centered", 
-    page_icon="📮" 
+    page_icon="https://img.icons8.com/fluency/96/mailbox-closed-flag-down.png" 
 )
 
 # --- 強制深色模式 CSS 與網頁設定 ---
@@ -17,7 +18,13 @@ st.markdown("""
         color: #FAFAFA; 
     }
     
-    /* 【標題與 Logo 設計】模仿截圖中的圓角方塊效果 */
+    /* 強制網頁大標題不換行，並根據螢幕自動縮放大小 */
+    h1 {
+        white-space: nowrap !important; 
+        font-size: clamp(22px, 7vw, 40px) !important; 
+    }
+    
+    /* 【標題與 Logo 設計】模仿圓角方塊效果 */
     .title-container {
         display: flex;
         align-items: center;
@@ -27,16 +34,16 @@ st.markdown("""
     }
     .app-logo {
         background-color: #2563EB; /* 郵務藍色背景 */
-        width: 50px;
-        height: 50px;
-        border-radius: 12px;
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         border: 2px solid #3B82F6;
         overflow: hidden; /* 確保圖片不超出圓角 */
-        padding: 5px; /* 給圖片一點呼吸空間 */
+        padding: 4px; /* 給圖片一點呼吸空間 */
     }
     /* 調整 Logo 圖片的樣式 */
     .app-logo img {
@@ -44,6 +51,7 @@ st.markdown("""
         max-height: 100%;
         object-fit: contain; /* 保持圖片比例並縮放適應 */
     }
+    
     .main-title-text {
         font-size: clamp(26px, 7vw, 40px);
         font-weight: bold;
@@ -51,12 +59,6 @@ st.markdown("""
         margin: 0;
     }
 
-    /* 標題防換行與縮放 */
-    h1 {
-        white-space: nowrap !important; 
-        font-size: clamp(22px, 7vw, 40px) !important; 
-    }
-    
     /* 群組摺疊面板 (Expander) 標題列 */
     .streamlit-expanderHeader,
     [data-testid="stExpander"] details summary,
@@ -75,6 +77,14 @@ st.markdown("""
         border: 1px solid #334155;
         border-top: none;
         border-radius: 0 0 8px 8px;
+    }
+
+    /* 選擇商品框箭頭變色 */
+    div[data-baseweb="select"] > div {
+        background-color: #1E293B !important;
+    }
+    div[data-baseweb="select"] svg {
+        fill: #FAFAFA !important;
     }
 
     /* 選擇商品後內容顏色變白 */
@@ -118,14 +128,6 @@ st.markdown("""
         fill: #94A3B8 !important;
     }
 
-    /* 選擇商品框箭頭變色 */
-    div[data-baseweb="select"] > div {
-        background-color: #1E293B !important;
-    }
-    div[data-baseweb="select"] svg {
-        fill: #FAFAFA !important;
-    }
-
     /* 下拉清單深色化 */
     ul[role="listbox"], div[data-baseweb="popover"] ul {
         background-color: #1E293B !important;
@@ -142,6 +144,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 資料讀取區 ---
+# 請確認這行網址是你原本的 CSV 公開網址，不要改動它
 SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQV5BqwNpncIYT0LB6bf67sGfMB0-dghenS23uGqX7WqLUo9qUv8PkG84JwQh58UmUlycRti-CKZErv/pub?output=csv"
 
 @st.cache_data(ttl=60) 
@@ -154,12 +157,12 @@ def load_data():
 
 df = load_data()
 
-# --- 🎯 2. 標題區：嵌入 Q 版卡通郵筒圖片 Logo ---
+# --- 🎯 2. 標題區：嵌入可愛的 Q 版紅色郵筒圖片 Logo ---
 # 我更換了一個更可愛的 Q 版郵筒圖片網址
 st.markdown("""
 <div class="title-container">
     <div class="app-logo">
-        <img src="https://img.icons8.com/fluency/96/mailbox-closed-flag-down.png" alt="Q版郵筒">
+        <img src="https://img.icons8.com/fluency/96/mailbox-closed-flag-down.png" alt="可愛郵筒">
     </div>
     <div class="main-title-text">甲佣試算一覽表</div>
 </div>
@@ -167,7 +170,7 @@ st.markdown("""
 
 st.markdown("""
 <div style='font-size: 14px; color: #94A3B8; line-height: 1.5; margin-bottom: 15px;'>
-製作者：徐杰　v115.03.04_V13（修正版）<br>
+製作者：徐杰　v115.03.04_V13（可愛郵筒版）<br>
 甲佣比率請以最新公告之公文為主(壽字第1152200308號函)<br>
 （本網頁僅供參考） 
 </div>
@@ -178,7 +181,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 試算介面邏輯 (下方維持原樣，省略部分程式碼以節省空間) ---
-# ... (這裡維持之前的計算邏輯) ...
 groups = df["群組"].unique()
 
 for group in groups:
@@ -216,4 +218,3 @@ for group in groups:
             
         rows_html += f"<div style='display: flex; justify-content: space-between; padding-top: 12px; margin-top: 8px; border-top: 1px dashed #475569; font-size: 16px; font-weight: bold;'><span style='color: #FAFAFA;'>合計</span><span style='color: #FF4B4B;'>{sum_yearly_amt:,} 元</span></div></div>"
         st.markdown(rows_html, unsafe_allow_html=True)
-
